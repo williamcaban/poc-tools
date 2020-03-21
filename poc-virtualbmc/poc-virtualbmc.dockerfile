@@ -12,16 +12,15 @@ RUN dnf update  --disablerepo=* --enablerepo=ubi-8-appstream --enablerepo=ubi-8-
 RUN dnf install -y procps-ng iproute python3-virtualenv python3-libvirt openssh-clients \
     && rm -rf /var/cache/yum
 
-VOLUME ["/root/.ssh","/vbmc/config"]
+RUN pip-3 install virtualbmc
 
+ADD ./virtualbmc.conf /vbmc/
 ENV VIRTUALBMC_CONFIG /vbmc/virtualbmc.conf
-COPY virtualbmc.conf /vmbc
 WORKDIR /vbmc
 
-# User unprivileged user
-#USER 10000
-RUN pip-3 install virtualbmc
 EXPOSE 7000-7020
+
+VOLUME ["/root/.ssh","/vbmc/config"]
 
 # Start the service in the foreground
 CMD ["--foreground"]

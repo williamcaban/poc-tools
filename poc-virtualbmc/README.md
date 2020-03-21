@@ -19,10 +19,27 @@ or execute
 ./install.sh
 ```
 
-## Using the service
+## Installing the service
 
+- Start the service
 ```
 systemctl start poc-virtualbmc
 systemctl status -l poc-virtualbmc
 systemctl enable poc-virtualbmc
 ```
+
+- Copy virtualbmc public key as authorized keys in the libvirt server
+```
+export VIRTUALBMCPATH="/opt/virtualbmc"
+export LIBVIRTSERVER="root@kvm01"
+
+# Copy output from
+cat  ${VIRTUALBMCPATH}/keys/id_rsa.pub
+
+ssh root@${LIBVIRTSERVER}
+vi /root/.ssh/authorized_keys
+# paste content of poc-virtualbmc id_rsa.pub
+```
+
+## Using the service
+

@@ -6,11 +6,7 @@
 # systemctl enable poc-virtualbmc
 #
 # podman pull quay.io/wcaban/poc-virtualbmc
-# mkdir -pv /opt/virtualbmc/{keys}
-
-#     --privileged --cap-add=NET_ADMIN --net host
-#     --net host --privileged \
-
+# mkdir -pv /opt/virtualbmc/keys
 [Unit]
 Description=Virtual BMC Server
 After=network.target syslog.target
@@ -22,9 +18,10 @@ ExecStartPre=-mkdir -p /opt/virtualbmc/keys
 ExecStartPre=-/usr/bin/podman rm "poc-virtualbmc"
 
 # Running in host network mode to allow dynamic port definition
+# otherwise use -p 7000-7020:7000-7020
 ExecStart=/usr/bin/podman run --name poc-virtualbmc \
-    --net host  \
-    -v /opt/virtualbmc/keys:/root/.ssh/:ro \
+    --net host \
+    -v /opt/virtualbmc/keys:/root/.ssh:ro \
     -v /opt/virtualbmc:/vbmc/config:Z \
     quay.io/wcaban/poc-virtualbmc
 
