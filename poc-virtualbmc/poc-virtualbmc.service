@@ -21,7 +21,7 @@ ExecStartPre=-/usr/bin/podman rm "poc-virtualbmc"
 # otherwise use -p 7000-7020:7000-7020
 ExecStart=/usr/bin/podman run --name poc-virtualbmc \
     --net host \
-    -v /opt/virtualbmc/keys:/root/.ssh:ro \
+    -v /opt/virtualbmc/keys:/root/.ssh:Z \
     -v /opt/virtualbmc:/vbmc/config:Z \
     quay.io/wcaban/poc-virtualbmc
 
