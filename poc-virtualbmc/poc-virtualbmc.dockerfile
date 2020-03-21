@@ -12,7 +12,7 @@ RUN dnf update  --disablerepo=* --enablerepo=ubi-8-appstream --enablerepo=ubi-8-
 RUN dnf install -y procps-ng iproute python3-virtualenv python3-libvirt openssh-clients \
     && rm -rf /var/cache/yum
 
-VOLUME ["/root/.ssh/id_rsa","/vbmc/config"]
+VOLUME ["/root/.ssh","/vbmc/config"]
 
 ENV VIRTUALBMC_CONFIG /vbmc/virtualbmc.conf
 COPY virtualbmc.conf /vmbc
