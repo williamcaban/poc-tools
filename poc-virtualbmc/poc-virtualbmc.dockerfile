@@ -21,7 +21,7 @@ WORKDIR /vbmc
 # User unprivileged user
 #USER 10000
 RUN pip-3 install virtualbmc
-EXPOSE 7000-8000
+EXPOSE 7000-7020
 
 # Start the service in the foreground
 CMD ["--foreground"]

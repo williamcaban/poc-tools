@@ -21,8 +21,9 @@ TimeoutStartSec=5m
 ExecStartPre=-mkdir -p /opt/virtualbmc/keys
 ExecStartPre=-/usr/bin/podman rm "poc-virtualbmc"
 
+# Running in host network mode to allow dynamic port definition
 ExecStart=/usr/bin/podman run --name poc-virtualbmc \
-    -p 7000-8000:7000-8000 \
+    --net host  \
     -v /opt/virtualbmc/keys:/root/.ssh/:ro \
     -v /opt/virtualbmc:/vbmc/config:Z \
     quay.io/wcaban/poc-virtualbmc
