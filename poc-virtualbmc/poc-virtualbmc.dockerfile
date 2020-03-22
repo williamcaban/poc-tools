@@ -9,7 +9,7 @@ RUN dnf update  --disablerepo=* --enablerepo=ubi-8-appstream --enablerepo=ubi-8-
 
 # Install specific rpm packages (for troubleshooting: procps-ng, iproute)
 # NOTE: These packages require RHEL node
-RUN dnf install -y procps-ng iproute python3-virtualenv python3-libvirt openssh-clients \
+RUN dnf install -y procps-ng iproute python3-virtualenv python3-libvirt openssh-clients ipmitool \
     && rm -rf /var/cache/yum
 
 RUN pip-3 install virtualbmc
