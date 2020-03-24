@@ -1,0 +1,38 @@
+# Copy (chmod 664) to /etc/systemd/system/poc-dns.service
+#
+# systemctl daemon-reload
+# systemctl start poc-dns
+# systemctl status poc-dns
+# systemctl enable poc-dns
+#
+# podman pull quay.io/wcaban/poc-dns
+# mkdir -pv /opt/dnsmasq/{leases,dnsmasq.d}
+
+#     --privileged --cap-add=NET_ADMIN --net host
+
+[Unit]
+Description=POC DNS Server
+After=network.target syslog.target
+
+[Service]
+Type=simple
+TimeoutStartSec=5m
+ExecStartPre=-mkdir -p /opt/dnsmasq/leases
+ExecStartPre=-/usr/bin/podman rm "poc-dns"
+
+ExecStart=/usr/bin/podman run --name poc-dns \
+    --net host --privileged \
+    -v /opt/dnsmasq/dnsmasq.d/lab.conf:/etc/dnsmasq.d/lab.conf:ro \
+    -v /opt/dnsmasq/leases:/var/lib/dnsmasq:Z \
+    -v /opt/dnsmasq/:/opt/dnsmasq/:ro \
+    quay.io/wcaban/poc-dns
+
+ExecReload=-/usr/bin/podman stop "poc-dns"
+ExecReload=-/usr/bin/podman rm   "poc-dns"
+ExecReload=-rm -f /opt/dnsmasq/leases/dnsmasq.leases
+ExecStop=-/usr/bin/podman   stop "poc-dns"
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
