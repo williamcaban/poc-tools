@@ -20,6 +20,7 @@ TimeoutStartSec=5m
 ExecStartPre=-mkdir -p /opt/dnsmasq/leases
 ExecStartPre=-/usr/bin/podman rm "poc-dns"
 
+# Running in host and privileged mode. 
 ExecStart=/usr/bin/podman run --name poc-dns \
     --net host --privileged \
     -v /opt/dnsmasq/dnsmasq.d/lab.conf:/etc/dnsmasq.d/lab.conf:ro \
