@@ -25,7 +25,6 @@
 198.18.100.18       worker-3
 2001:470:8:d83::18  worker-3
 
-
 # Local bastion node (old)
 198.18.100.1        bastion
 2001:470:8:d83::1   bastion
@@ -36,8 +35,9 @@
 # lb
 198.18.100.24       bastion8 lb lb-int api-int 
 2001:470:8:d83::2   bastion8 lb lb-int api-int lb-ext api
+
 # required for cname
-96.234.167.84       lb-ext api
+96.244.131.60       lb-ext api
 
 198.18.100.25       regisry
 2001:470:8:d83::25  regisry

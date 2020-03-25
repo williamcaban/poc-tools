@@ -1,13 +1,16 @@
 # podman build -t quay.io/wcaban/poc-dns:latest -f Dockerfile
 FROM registry.access.redhat.com/ubi8/ubi
 
-RUN dnf install --nodocs -y dnsmasq syslinux-tftpboot && \
+RUN dnf install --nodocs -y dnsmasq syslinux-tftpboot ipxe-bootimgs && \
     dnf clean all && \
     rm -rf /var/cache/dnf 
 
 LABEL maintainer="William Caban" \
     io.k8s.display-name="dnsmasq" \
     io.k8s.description="Containerized dnsmasq - DNS caching server"
+
+# Copy the correct binary to ipxe.efi 
+RUN cp /usr/share/ipxe/ipxe-x86_64.efi /tftpboot/ipxe.efi
 
 # DNS (53), DHCP (67,68), TFTP (69), DHCPv6 (547)
 EXPOSE 53 67 68 69 547
