@@ -6,7 +6,7 @@
 # systemctl enable poc-dns
 #
 # podman pull quay.io/wcaban/poc-dns
-# mkdir -pv /opt/dnsmasq/{leases,dnsmasq.d}
+# mkdir -pv /opt/dnsmasq/{leases,dnsmasq.d,pxelinux.cfg,rhcos}
 
 #     --privileged --cap-add=NET_ADMIN --net host
 
@@ -25,6 +25,8 @@ ExecStart=/usr/bin/podman run --name poc-dns \
     --net host --privileged \
     -v /opt/dnsmasq/dnsmasq.d/lab.conf:/etc/dnsmasq.d/lab.conf:ro \
     -v /opt/dnsmasq/leases:/var/lib/dnsmasq:Z \
+    -v /opt/dnsmasq/pxelinux.cfg:/tftpboot/pxelinux.cfg:ro \
+    -v /opt/dnsmasq/rhcos:/tftpboot/rhcos:ro \
     -v /opt/dnsmasq/:/opt/dnsmasq/:ro \
     quay.io/wcaban/poc-dns
 
