@@ -11,7 +11,7 @@ LABEL maintainer="William Caban" \
     io.k8s.description="Containerized dnsmasq - DNS caching server"
 
 # Copy the correct binary to ipxe.efi 
-RUN cp /usr/share/ipxe/ipxe-x86_64.efi /tftpboot/ipxe.efi
+RUN cp /usr/share/ipxe/ipxe-x86_64.efi /tftpboot/ipxe.efi && mkdir -p /tftpboot/rhcos
 COPY default.pxe /tftpboot/pxelinux.cfg/default
 
 # DNS (53), DHCP (67,68), TFTP (69), DHCPv6 (547)
