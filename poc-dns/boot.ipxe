@@ -1,0 +1,22 @@
+:local
+exit
+
+:shell
+echo Type 'exit' to get back to the menu
+set menu-timeout 200
+set submenu-timeout 200
+goto start
+
+:bootstrap
+kernel http://198.18.100.24:8080/rhcos/rhcos-installer-kernel initrd=rhcos-installer-initramfs.img ip=dhcp rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.first_boot=1 coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/bootstrap.ign
+initrd http://198.18.100.24:8080/rhcos/rhcos-installer-initramfs.img
+boot || goto failed
+
+:master
+kernel http://198.18.100.24:8080/rhcos/rhcos-installer-kernel initrd=rhcos-installer-initramfs.img ip=dhcp rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.first_boot=1 coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/master.ign
+initrd http://198.18.100.24:8080/rhcos/rhcos-installer-initramfs.img
+boot || goto failed
+
+:worker
+kernel http://198.18.100.24:8080/rhcos/rhcos-installer-kernel initrd=rhcos-installer-initramfs.img ip=dhcp rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.first_boot=1 coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/worker.ign
+initrd http://198.18.100.24:8080/rhcos/rhcos-installer-initramfs.img
