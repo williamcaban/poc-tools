@@ -11,17 +11,17 @@ MENU TITLE PXE BOOT MENU
 LABEL WORKER
   MENU LABEL ^1 WORKER
   KERNEL rhcos/rhcos-installer-kernel
-  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=sda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/worker.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
+  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/worker.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
 
 LABEL MASTER
   MENU LABEL ^2 MASTER
   KERNEL rhcos/rhcos-installer-kernel
-  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=sda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/master.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
+  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/master.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
 
 LABEL BOOTSTRAP-BIOS
   MENU LABEL ^3 BOOTSTRAP
   KERNEL rhcos/rhcos-installer-kernel
-  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=sda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/bootstrap.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
+  APPEND rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.ignition_url=http://198.18.100.24:8080/ignition/bootstrap.ign coreos.inst.image_url=http://198.18.100.24:8080/rhcos/rhcos-metal.raw.gz ip=eno1:dhcp 
 
 LABEL LOCAL
   MENU LABEL ^4 BOOT FROM LOCAL DISK
@@ -32,18 +32,18 @@ LABEL LOCAL
 # SECTION FOR ADVANCED TROUBLESHOOTING
 # man dracut.cmdline for options
 ###########################################################
-LABEL RECOVERY1
+LABEL DRACUT1
   MENU LABEL ^8 DRACUT (initqueue)
-  KERNEL rhcos/rhcos-kernel
+  KERNEL rhcos/rhcos-installer-kernel
   APPEND rd.break=initqueue  rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 ip=eno1:dhcp
 
 # NOTES: Using rd.break=initqueue
 # Identify disk: lsblk
-# Mount root partition: mkdir /mnt ; mount /dev/sda2 /mnt ; cd /mnt
+# Mount root partition: mkdir /mnt ; mount /dev/vda2 /mnt ; cd /mnt
 
-LABEL RECOVERY2
+LABEL DRACUT2
   MENU LABEL ^9 DRACUT (pre-mount)
-  KERNEL rhcos/rhcos-kernel
+  KERNEL rhcos/rhcos-installer-kernel
   APPEND rd.break=pre-mount  rd.neednet=1 initrd=rhcos/rhcos-installer-initramfs.img console=tty0 ip=eno1:dhcp
 
 # NOTES: Using rd.break=pre-mount
