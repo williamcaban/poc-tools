@@ -12,6 +12,7 @@ LABEL maintainer="William Caban" \
 
 # Copy the correct binary to ipxe.efi 
 RUN cp /usr/share/ipxe/ipxe-x86_64.efi /tftpboot/ipxe.efi
+COPY default.pxe /tftpboot/pxelinux.cfg/default
 
 # DNS (53), DHCP (67,68), TFTP (69), DHCPv6 (547)
 EXPOSE 53 67 68 69 547
