@@ -1,7 +1,8 @@
 # podman build -t quay.io/wcaban/poc-dns:latest -f Dockerfile
 FROM registry.access.redhat.com/ubi8/ubi
 
-RUN dnf install --nodocs -y dnsmasq syslinux-tftpboot ipxe-bootimgs && \
+# Install packages (for troubleshooting: procps-ng, iproute)
+RUN dnf install --nodocs -y dnsmasq syslinux-tftpboot ipxe-bootimgs iproute procps-ng && \
     dnf clean all && \
     rm -rf /var/cache/dnf 
 
