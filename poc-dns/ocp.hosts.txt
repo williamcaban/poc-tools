@@ -1,26 +1,33 @@
 # Bootstrap
 198.18.100.10       bootstrap
 2001:470:8:d83::10  bootstrap
+2001:470:8:d83::365 bootstrap
 
 # Masters
 198.18.100.11       master-0 etcd-0
 2001:470:8:d83::11  master-0 etcd-0
+2001:470:8:d83::db  master-0 etcd-0
 
 198.18.100.12       master-1 etcd-1
 2001:470:8:d83::12  master-1 etcd-1
+2001:470:8:d83::2f8 master-1 etcd-1
 
 198.18.100.13       master-2 etcd-2
 2001:470:8:d83::13  master-2 etcd-2
+2001:470:8:d83::29b master-2 etcd-2
 
 # Workers
 198.18.100.15       worker-0
 2001:470:8:d83::15  worker-0
+2001:470:8:d83::618 worker-0
 
 198.18.100.16       worker-1
 2001:470:8:d83::16  worker-1
+2001:470:8:d83::172 worker-1
 
 198.18.100.17       worker-2
 2001:470:8:d83::17  worker-2
+2001:470:8:d83::fbe worker-2
 
 198.18.100.18       worker-3
 2001:470:8:d83::18  worker-3
@@ -37,7 +44,7 @@
 2001:470:8:d83::2   bastion8 lb lb-int api-int lb-ext api
 
 # required for cname
-96.244.131.60       lb-ext api
+68.134.10.149       lb-ext api
 
 198.18.100.25       regisry
 2001:470:8:d83::25  regisry
